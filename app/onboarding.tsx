@@ -1,7 +1,11 @@
-import { View, StyleSheet, Button } from "react-native";
+import { Image, StyleSheet,useWindowDimensions, View, Text  } from "react-native";
 import { theme } from "@/theme";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "expo-router";
+import { PlantlyButton } from "@/components/PlantlyButton";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "expo-status-bar";
+import { PlantlyImage } from "@/components/PlantlyImage";
 
 export default function OnboardingScreen() {
     const router = useRouter();
@@ -13,9 +17,20 @@ export default function OnboardingScreen() {
     };
   
   return (
-    <View style={styles.container}>
-      <Button title="Let me in!" onPress={handlePress} />
-    </View>
+    <LinearGradient
+      style={styles.container}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      colors={[theme.colorGreen, theme.colorAppleGreen, theme.colorLimeGreen]}
+    >
+      <StatusBar style="light" />
+      <View>
+        <Text style={styles.heading}>Plantly</Text>
+        <Text style={styles.tagline}>Keep Your Plants Happy and Hydrated</Text>
+      </View>
+      <PlantlyImage />
+      <PlantlyButton title="Let me in!" onPress={handlePress} />
+    </LinearGradient>
   );
 }
 
@@ -25,5 +40,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.colorWhite,
+    padding: 24,
+  },
+  heading: {
+    fontSize: 42,
+    color: theme.colorWhite,
+    fontWeight: "bold",
+    marginBottom: 12,
+    textAlign: "center",
+  },
+  tagline: {
+    fontSize: 24,
+    color: theme.colorWhite,
+    textAlign: "center",
   },
 });
