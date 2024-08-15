@@ -5,13 +5,17 @@ import {
     Alert,
     View,
   } from "react-native";
-  import { theme } from "@/theme";
-  import { PlantlyButton } from "@/components/PlantlyButton";
-  import { useState } from "react";
-  import { PlantlyImage } from "../components/PlantyImage";
-  import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { theme } from "@/theme";
+import { PlantlyButton } from "@/components/PlantlyButton";
+import { useState } from "react";
+import { PlantlyImage } from "../components/PlantyImage";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { usePlantStore } from "@/store/plantsStore";
+import { useRouter } from "expo-router";
   
   export default function NewScreen() {
+    const router = useRouter();
+    const addPlant = usePlantStore((state) => state.addPlant);
     const [name, setName] = useState<string>();
     const [days, setDays] = useState<string>();
   
@@ -34,7 +38,8 @@ import {
         );
       }
   
-      console.log("Adding plant", name, days);
+      addPlant(name, Number(days));
+      router.navigate("/");
     };
   
     return (
